@@ -9,9 +9,14 @@
 <Day01Solution />
 
 <style>
+    :root {
+        --font-color: 204, 204, 204;
+        --alpha: 0.8;
+    }
+
     :global(body) {
 				background-color: #0f0f23;;
-				color: #cccccc;
+				color: rgb(204, 204, 204);
 				font-family: "Source Code Pro", monospace;
 				font-weight: 300;
 				font-size: 14pt;
