@@ -1,10 +1,12 @@
 <script>
 	import Intro from '$lib/components/Intro.svelte';
 	import Day01Intro from "$lib/components/day-01/Intro.svelte"
+	import Day01Solution from "$lib/components/day-01/Solution.svelte"
 </script>
 
 <Intro />
 <Day01Intro />
+<Day01Solution />
 
 <style>
     :global(body) {
