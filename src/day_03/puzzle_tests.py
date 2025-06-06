@@ -2,7 +2,7 @@ __author__ = "Tofu-Gang"
 __email__ = "tofugangsw@gmail.com"
 
 from unittest import TestCase, main
-from puzzle import get_checksum, get_evenly_divisible_checksum
+from spiral_memory import SpiralMemory
 
 
 class TestDay01(TestCase):
@@ -11,42 +11,33 @@ class TestDay01(TestCase):
 
     def test_puzzle_1(self) -> None:
         """
-        For example, given the following spreadsheet:
-        5 1 9 5
-        7 5 3
-        2 4 6 8
-
-        -The first row's largest and smallest values are 9 and 1, and their
-         difference is 8.
-        -The second row's largest and smallest values are 7 and 3, and their
-         difference is 4.
-        -The third row's difference is 6.
-
-        In this example, the spreadsheet's checksum would be 8 + 4 + 6 = 18.
+        -Data from square 1 is carried 0 steps, since it's at the access port.
+        -Data from square 12 is carried 3 steps, such as: down, left, left.
+        -Data from square 23 is carried only 2 steps: up twice.
+        -Data from square 1024 must be carried 31 steps.
         """
 
-        spreadsheet = "5 1 9 5\n7 5 3\n2 4 6 8"
-        self.assertEqual(get_checksum(spreadsheet), 18)
+        memory = SpiralMemory()
+        memory.create_squares(1)
+        self.assertEqual(memory.data_distance, 0)
+        memory.reset()
+        memory.create_squares(12)
+        self.assertEqual(memory.data_distance, 3)
+        memory.reset()
+        memory.create_squares(23)
+        self.assertEqual(memory.data_distance, 2)
+        memory.reset()
+        memory.create_squares(1024)
+        self.assertEqual(memory.data_distance, 31)
 
 ################################################################################
 
     def test_puzzle_2(self) -> None:
         """
-        For example, given the following spreadsheet:
-        5 9 2 8
-        9 4 7 3
-        3 8 6 5
 
-        -In the first row, the only two numbers that evenly divide are 8 and 2;
-         the result of this division is 4.
-        -In the second row, the two numbers are 9 and 3; the result is 3.
-        -In the third row, the result is 2.
-
-        In this example, the sum of the results would be 4 + 3 + 2 = 9.
         """
 
-        spreadsheet = "5 9 2 8\n9 4 7 3\n3 8 6 5"
-        self.assertEqual(get_evenly_divisible_checksum(spreadsheet), 9)
+        pass
 
 ################################################################################
 
