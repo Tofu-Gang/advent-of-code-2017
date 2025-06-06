@@ -85,6 +85,16 @@ class SpiralMemory:
 
 ################################################################################
 
+    @property
+    def current_square(self) -> int:
+        """
+        :return: current square value
+        """
+
+        return self._memory[self._current_row][self._current_column]
+
+################################################################################
+
     def create_squares(self, square_count: int) -> None:
         """
         Create squares in a spiral pattern, starting in the origin (square 1).
@@ -98,7 +108,23 @@ class SpiralMemory:
 
         if square_count >= self.SPIRAL_ORIGIN:
             while self._square_counter < square_count:
-                self._create_square()
+                self._create_square(False)
+
+################################################################################
+
+    def stress_test(self, threshold: int) -> None:
+        """
+        Create squares in a spiral pattern, starting in the origin (square 1).
+        A sum of all adjacent values (8 directions) is written to each new
+        square.
+
+        :param threshold: stress test is stopped first time the value written in
+        a new square is larger than this param
+        """
+
+        if threshold >= self.SPIRAL_ORIGIN:
+            while self.current_square <= threshold:
+                self._create_square(True)
 
 ################################################################################
 
@@ -117,10 +143,12 @@ class SpiralMemory:
 
 ################################################################################
 
-    def _create_square(self) -> None:
+    def _create_square(self, stress_test: bool) -> None:
         """
         Figure out the direction in which to move in the grid to follow a spiral
         pattern. Expand the grid if needed. Create a new square.
+
+        :param stress_test: True for puzzle 2, False for puzzle 1
         """
 
         # what should be the next direction to continue in the spiral pattern
@@ -147,7 +175,13 @@ class SpiralMemory:
         self._current_column = self.DIRECTIONS[self._direction][self.COLUMN]()
         # create a new square here
         self._square_counter += 1
-        self._memory[self._current_row][self._current_column] = self._square_counter
+
+        if stress_test:
+            # puzzle 2
+            self._memory[self._current_row][self._current_column] = self._get_adjacent_sum()
+        else:
+            # puzzle 1
+            self._memory[self._current_row][self._current_column] = self._square_counter
 
 ################################################################################
 
@@ -175,6 +209,40 @@ class SpiralMemory:
         next_row = self.DIRECTIONS[direction][self.ROW]()
         next_column = self.DIRECTIONS[direction][self.COLUMN]()
         return self._memory[next_row][next_column] == self.EMPTY_SQUARE
+
+################################################################################
+
+    def _get_adjacent_sum(self) -> int:
+        """
+        :return: sum of all adjacent squares of the current square
+        """
+
+        result = 0
+        if self._current_row > 0 and self._current_column > 0:
+            # upper left
+            result += self._memory[self._current_row - 1][self._current_column - 1]
+        if self._current_row > 0:
+            # up
+            result += self._memory[self._current_row - 1][self._current_column]
+        if self._current_row > 0 and self._current_column < len(self._memory[0]) - 1:
+            # upper right
+            result += self._memory[self._current_row - 1][self._current_column + 1]
+        if self._current_column < len(self._memory[0]) - 1:
+            # right
+            result += self._memory[self._current_row][self._current_column + 1]
+        if self._current_row < len(self._memory) - 1 and self._current_column < len(self._memory[0]) - 1:
+            # bottom right
+            result += self._memory[self._current_row + 1][self._current_column + 1]
+        if self._current_row < len(self._memory) - 1:
+            # bottom
+            result += self._memory[self._current_row + 1][self._current_column]
+        if self._current_row < len(self._memory) - 1 and self._current_column > 0:
+            # bottom left
+            result += self._memory[self._current_row + 1][self._current_column - 1]
+        if self._current_column > 0:
+            # left
+            result += self._memory[self._current_row][self._current_column - 1]
+        return result
 
 ################################################################################
 
