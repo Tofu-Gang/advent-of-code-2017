@@ -11,7 +11,6 @@ class TestDay01(TestCase):
 
     def test_puzzle_1(self) -> None:
         """
-        adfasdfa
         For example, given the following spreadsheet:
         5 1 9 5
         7 5 3
@@ -33,7 +32,6 @@ class TestDay01(TestCase):
 
     def test_puzzle_2(self) -> None:
         """
-        asdfasdf
         For example, given the following spreadsheet:
         5 9 2 8
         9 4 7 3
