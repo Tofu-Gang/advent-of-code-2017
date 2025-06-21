@@ -20,7 +20,7 @@ Collect stars by solving puzzles. Two puzzles will be made available on each
 complete the first. Each puzzle grants one star. Good luck!
 """
 
-from src.day_10 import puzzle
+from src.day_11 import puzzle
 
 
 ################################################################################
