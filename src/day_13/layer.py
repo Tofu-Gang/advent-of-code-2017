@@ -51,22 +51,26 @@ class Layer:
 
 ################################################################################
 
-    def step(self) -> None:
+    def step(self, count: int) -> None:
         """
 
+        :param count:
         """
 
-        if self._direction == self.DOWN:
-            if self._security_scanner_pos < self._range - 1:
-                self._security_scanner_pos += 1
-            else:
-                self._direction = self.UP
-                self._security_scanner_pos -= 1
-        elif self._direction == self.UP:
-            if self._security_scanner_pos > 0:
-                self._security_scanner_pos -= 1
-            else:
-                self._direction = self.DOWN
-                self._security_scanner_pos += 1
+        count %= (self._range + (self._range - 2))
+
+        for _ in range(count):
+            if self._direction == self.DOWN:
+                if self._security_scanner_pos < self._range - 1:
+                    self._security_scanner_pos += 1
+                else:
+                    self._direction = self.UP
+                    self._security_scanner_pos -= 1
+            elif self._direction == self.UP:
+                if self._security_scanner_pos > 0:
+                    self._security_scanner_pos -= 1
+                else:
+                    self._direction = self.DOWN
+                    self._security_scanner_pos += 1
 
 ################################################################################
