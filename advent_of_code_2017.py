@@ -20,7 +20,7 @@ Collect stars by solving puzzles. Two puzzles will be made available on each
 complete the first. Each puzzle grants one star. Good luck!
 """
 
-from src.day_12 import puzzle
+from src.day_15 import puzzle
 
 
 ################################################################################
@@ -30,7 +30,7 @@ if __name__ == "__main__":
     Runs specified puzzles.
     """
 
-    puzzle.puzzle_01()
+    # puzzle.puzzle_01()
     puzzle.puzzle_02()
 
 ################################################################################
